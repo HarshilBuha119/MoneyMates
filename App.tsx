@@ -1,45 +1,44 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// App.js
+import React, { useEffect } from 'react';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from "./App/navigation/AppNavigator"
+import ExpenseProvider from './App/context/ExpenseContext';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import AuthProvider, { AuthContext } from './App/context/AuthContext';
+import notifee from "@notifee/react-native";
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+GoogleSignin.configure({
+  webClientId:
+    '337803005366-hlkdut89nsphkpf4g073eejusr6j0jrg.apps.googleusercontent.com',
 });
+export default function App(){
+useEffect(() => {
+  async function setup() {
+    // Request permission (Android 13+)
+    await notifee.requestPermission();  // <-- REQUIRED
 
-export default App;
+    await notifee.createChannel({
+      id: "money-reminders",
+      name: "Money Reminders",
+      importance: 4,
+    });
+  }
+  setup();
+}, []);
+
+return (
+  <AuthProvider>
+    <AuthContext.Consumer>
+      {({ user }) => (
+        <ExpenseProvider user={user}>
+          <NavigationContainer>
+            <StatusBar barStyle="dark-content" />
+            <AppNavigator />
+          </NavigationContainer>
+        </ExpenseProvider>
+      )}
+    </AuthContext.Consumer>
+  </AuthProvider>
+);
+}
