@@ -1,6 +1,7 @@
 /**
  * @format
  */
+import 'react-native-url-polyfill/auto';
 import notifee, { EventType } from '@notifee/react-native';
 import { AppRegistry } from 'react-native';
 import App from './App';

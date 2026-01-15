@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import LoginScreen from "../screens/LoginScreen";
-import AddExpenseModal from "../screens/AddExpense";
-import PersonExpensesScreen from "../screens/PersonExpensesScreen";
-import EditProfileScreen from "../screens/EditProfileScreen"
-import RecentActivityScreen from '../screens/RecentActivityScreen'
+import ProductDetailScreen from "../screens/ProductDetailScreen";
+import ProductsScreen from "../screens/ProductsScreen";
+import FavoritesScreen from "../screens/FavouritesScreen";
+import PaymentScreen from "../screens/PaymentScreen";
+import OrderScreen from "../screens/OrderScreen";
+import UploadJewellaryScreen from '../screens/UploadJewellaryScreen';
+import CartScreen from "../screens/CartScreen";
 import TabNavigator from "./TabNavigator";
-
 
 import { AuthContext } from "../context/AuthContext";
 
@@ -21,14 +22,14 @@ export default function AppNavigator() {
       {user ? (
         <>
           <Stack.Screen name="Tabs" component={TabNavigator} />
-
-          {/* These stay as normal Stack screens */}
-          <Stack.Screen name="AddExpense" component={AddExpenseModal} />
-          <Stack.Screen name="PersonExpenses" component={PersonExpensesScreen} />
-          <Stack.Screen name="EditProfile" component={EditProfileScreen}/>
-          <Stack.Screen name="RecentActivity" component={RecentActivityScreen}/>
-
-         </>
+          <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
+          <Stack.Screen name="Cart" component={CartScreen} />
+          <Stack.Screen name="Products" component={ProductsScreen} />
+          <Stack.Screen name="Favorites" component={FavoritesScreen} />
+          <Stack.Screen name="Payment" component={PaymentScreen} />
+          <Stack.Screen name="Orders" component={OrderScreen} />
+          <Stack.Screen name="UploadJewellary" component={UploadJewellaryScreen} />
+        </>
       ) : (
         <Stack.Screen name="Login" component={LoginScreen} />
       )}

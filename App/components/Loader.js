@@ -9,10 +9,7 @@ export default function Loader({ visible = false, text = "Loading..." }) {
       animationType="fade"
     >
       <View style={styles.overlay}>
-        <View style={styles.loaderBox}>
           <ActivityIndicator size="large" color="black" />
-          {text ? <Text style={styles.text}>{text}</Text> : null}
-        </View>
       </View>
     </Modal>
   );

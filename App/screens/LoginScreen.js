@@ -9,11 +9,12 @@ import {
     Dimensions,
     Alert
 } from "react-native"
+import Loader from '../components/Loader'
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Images } from "../../assets/images"
 import Ant from 'react-native-vector-icons/AntDesign'
 import FA from 'react-native-vector-icons/FontAwesome'
-import Loader from '../components/Loader'
+import AppImage from "../components/AppImage"
 import { useNavigation } from "@react-navigation/native"
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
@@ -47,7 +48,7 @@ export default function LoginScreen() {
             await signInWithCredential(getAuth(), googleCredential);
         } catch (error) {
             console.error('Google Sign-In Error:', error);
-            Alert.alert('Sign-in failed: ' , error.message);
+            Alert.alert('Sign-in failed: ', error.message);
         } finally {
             setLoading(false);
         }
@@ -68,16 +69,16 @@ export default function LoginScreen() {
                 <View style={styles.heroSection}>
                     <View style={styles.logoContainer}>
                         {/* Increased size for impact */}
-                        <Image
+                        <AppImage
                             source={Images.Logo}
                             style={styles.logo}
                             resizeMode="contain"
                         />
                     </View>
-                    <Text style={styles.appName}>MoneyMates</Text>
+                    <Text style={styles.appName}>Ashirwad Jewellers</Text>
                     <Text style={styles.tagline}>
-                        Split bills, not friendships.{"\n"}
-                        Track and settle expenses together.
+                        Elegance in Every Carat{"\n"}
+                        Crafted to Shine Forever.
                     </Text>
                 </View>
 
@@ -162,8 +163,8 @@ const styles = StyleSheet.create({
     logo: {
         width: 160, // Much bigger logo
         height: 160,
-        borderRadius:100,
-        elevation:40    },
+        borderRadius: 100,
+    },
     appName: {
         fontSize: 36, // Larger, bolder font
         fontWeight: "800",

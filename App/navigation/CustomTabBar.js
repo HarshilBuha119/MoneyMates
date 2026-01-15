@@ -1,8 +1,9 @@
 import React from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Feather from "react-native-vector-icons/Feather";
 
-export default function CustomTabBar({ state, descriptors, navigation }) {
+export default function CustomTabBar({ state, navigation }) {
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
@@ -14,13 +15,6 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
           }
         };
 
-        // Custom icons per route
-        const icons = {
-          Home: isFocused ? "home" : "home-outline",
-          Profile: isFocused ? "person" : "person-outline",
-          Stats: isFocused ? "pie-chart" : "pie-chart-outline",
-        };
-
         return (
           <TouchableOpacity
             key={route.key}
@@ -28,11 +22,30 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
             style={styles.tabButton}
             activeOpacity={0.7}
           >
-            <Ionicons
-              name={icons[route.name]}
-              size={26}
-              color={isFocused ? "#000" : "#8e8e93"}
-            />
+            {/* ICON */}
+            {route.name === "Products" ? (
+              <Feather
+                name="shopping-bag"
+                size={24}
+                color={isFocused ? "#000" : "#8e8e93"}
+              />
+            ) : (
+              <Ionicons
+                name={
+                  route.name === "Home"
+                    ? isFocused
+                      ? "home"
+                      : "home-outline"
+                    : isFocused
+                    ? "person"
+                    : "person-outline"
+                }
+                size={26}
+                color={isFocused ? "#000" : "#8e8e93"}
+              />
+            )}
+
+            {/* LABEL */}
             <Text style={[styles.label, isFocused && styles.labelFocused]}>
               {route.name}
             </Text>
@@ -43,16 +56,17 @@ export default function CustomTabBar({ state, descriptors, navigation }) {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
-    position:"absolute",
-    bottom:20,
-    marginHorizontal:20,
+    position: "absolute",
+    bottom: 20,
+    marginHorizontal: 20,
     flexDirection: "row",
     backgroundColor: "#fff",
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 30,
+    borderRadius: 50,
     elevation: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
